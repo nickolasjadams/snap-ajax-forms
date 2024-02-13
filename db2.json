@@ -1,0 +1,17 @@
+{
+    "success": false,
+    "errors": {
+        "hey": {
+            "messages": [
+                "This is the 'hey' error message.",
+                "There could be a second thing wrong."
+            ]
+        },
+        "world": {
+            "messages": [
+                "This is the 'world' error message.",
+                "There could be a second thing wrong."
+            ]
+        }
+    }
+}

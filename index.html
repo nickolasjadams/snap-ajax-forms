@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapAjaxForms Development</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <style>
+        .snap-ajax-spinner-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #007bff;
+            display: flex;
+            flex-flow: row;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .snap-ajax-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .snap-ajax-spinner {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            margin: 0 auto;
+            -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+            animation: sk-rotateplane 1.2s infinite ease-in-out;
+        }
+
+        @-webkit-keyframes sk-rotateplane {
+            0% { -webkit-transform: perspective(120px) }
+            50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+            100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+        }
+
+        @keyframes sk-rotateplane {
+            0% {
+                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+                -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+            } 50% {
+                  transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+                  -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+              } 100% {
+                    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+                    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+                }
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/db2.json" method="get" id="testForm" data-ajax data-ajax-recaptcha><!-- data-ajax-done="alertTheUser" -->
+
+<!--        <div class="snap-ajax-spinner-bar">-->
+<!--            <div class="snap-ajax-container">-->
+<!--                <div class="snap-ajax-spinner"></div>-->
+<!--                <div class="snap-ajax-spinner-message">Working on it...</div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <label for="hello">Hello</label>
+        <input type="text" name="hello" id="hello">
+        <div data-ajax-errors="hello"></div>
+
+        <input type="hidden" name="shhhh" value="I'm hunting wabbits.">
+
+        <fieldset>
+            <legend>Choose fruit you like:</legend>
+            <div>
+                <input type="checkbox" id="apples" name="fruits" value="apples" checked />
+                <label for="apples">Apples</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="oranges" name="fruits" value="oranges" />
+                <label for="oranges">Oranges</label>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Life is like a hurricane</legend>
+            <div>
+                <input type="radio" id="huey" name="ducktales" value="huey" checked />
+                <label for="huey">here...</label>
+            </div>
+
+            <div>
+                <input type="radio" id="dewey" name="ducktales" value="dewey" />
+                <label for="dewey">in...</label>
+            </div>
+
+            <div>
+                <input type="radio" id="louie" name="ducktales" value="louie" />
+                <label for="louie">Duckburg...</label>
+            </div>
+        </fieldset>
+
+        <label for="cars">Choose a car:</label>
+        <select name="cars" id="cars">
+            <option value="">--Please choose an option--</option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+
+        <label for="pet-select">Choose a pet:</label>
+
+        <select name="pets" id="pet-select" multiple>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="hamster">Hamster</option>
+            <option value="parrot">Parrot</option>
+            <option value="spider">Spider</option>
+            <option value="goldfish">Goldfish</option>
+        </select>
+
+        <textarea name="text" id="text"></textarea>
+
+        <label for="avatar">Choose a profile picture:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+
+        <label for="avatar">Share a lot of pictures:</label>
+        <input type="file" id="pictures" name="pictures" multiple accept="image/png, image/jpeg" />
+
+
+        <button name="button" value="1">Submit 1</button>
+        <button name="button" value="2">Submit 2</button>
+
+
+    </form>
+
+    <hr>
+
+    <form action="/db2.json" method="get" id="testForm2" data-ajax data-ajax-recaptcha><!-- data-ajax-done="alertTheUser" -->
+
+        <label for="Hey">Hey</label>
+        <input type="text" name="Hey" id="Hey">
+        <div data-ajax-errors="hey"></div>
+
+        <label for="world">World</label>
+        <input type="text" name="world" id="world">
+        <div data-ajax-errors="world"></div>
+
+        <button name="button" value="1">Submit 1</button>
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lebd2wpAAAAAJbRklEkaaWSVll6rvUAZRzTUE9j"></script>
+<!--    <script src="/dist/snap-ajax-forms.js"></script>-->
+    <script src="/src/SnapAjaxForms.js"></script>
+    <script>
+        function alertTheUser(data) {
+            alert("We ran a done function.");
+        }
+        document.querySelector("#testForm").addEventListener("test-form-submit", function() {
+            console.log("Recieved an event");
+        });
+
+        (function() {
+            let saf = new SnapAjaxForms({
+                recaptcha: {
+                    version: "v3",
+                    siteKey: "6Lebd2wpAAAAAJbRklEkaaWSVll6rvUAZRzTUE9j"
+                },
+            });
+            console.log(saf);
+        })();
+    </script>
+
+</body>
+</html>

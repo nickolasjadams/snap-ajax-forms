@@ -1,0 +1,36 @@
+{
+  "name": "@stegopop/snap-ajax-forms",
+  "version": "1.0.0",
+  "description": "Listen in on any trusted XHR's made on your webpage. Run functions when your conditions are met.",
+  "main": "dist/snap-ajax-forms.min.js",
+  "scripts": {
+    "js": "babel src/SnapAjaxForms.js --out-file dist/snap-ajax-forms.js",
+    "watch": "npm run js -- --watch",
+    "minify": "uglifyjs --compress --ie --comments --output dist/snap-ajax-forms.min.js -- dist/snap-ajax-forms.js",
+    "serve": "npx http-server -p 3001 --cors -c-1",
+    "test-api-server": "json-server --watch db.json",
+    "nothing-server": "node index.js",
+    "prep-release": "npm run js && npm run minify"
+  },
+  "author": "Nick Adams",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickolasjadams/snap-ajax-forms"
+  },
+  "keywords": [
+    "ajax",
+    "form",
+    "instant",
+    "browser"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "http-server": "^14.1.1",
+    "json-server": "^0.17.3",
+    "server": "^1.0.38",
+    "uglify-js": "^3.17.4"
+  }
+}
