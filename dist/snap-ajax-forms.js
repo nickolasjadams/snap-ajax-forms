@@ -74,7 +74,7 @@ var SnapAjaxForms = /*#__PURE__*/function () {
           form = _this$prepFormData2[0];
           data = _this$prepFormData2[1];
           submitter = _this$prepFormData2[2];
-          if (this.dataset['ajaxRecaptcha'] === '') {
+          if (form.dataset['ajaxRecaptcha'] === '') {
             if (typeof window['grecaptcha'] === "undefined") {
               console.warn("reCAPTCHA objects couldn't be found. Have the scripts been loaded?");
             } else {
@@ -97,8 +97,6 @@ var SnapAjaxForms = /*#__PURE__*/function () {
     key: "prepFormData",
     value: function prepFormData(form, submissionEvent) {
       this.onDone = window[form.getAttribute('data-ajax-done')];
-      // const form = this;
-      // let data = Object.fromEntries(new FormData(this));
       var submitter = submissionEvent.submitter;
       var formData = new FormData(form, submitter);
       if (submitter) {

@@ -1,7 +1,7 @@
 {
   "name": "@stegopop/snap-ajax-forms",
   "version": "1.0.0",
-  "description": "Listen in on any trusted XHR's made on your webpage. Run functions when your conditions are met.",
+  "description": "Instantly turn an HTML form element into an AJAX request just by adding an attribute.",
   "main": "dist/snap-ajax-forms.min.js",
   "scripts": {
     "js": "babel src/SnapAjaxForms.js --out-file dist/snap-ajax-forms.js",
