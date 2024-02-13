@@ -22,7 +22,8 @@
     "ajax",
     "form",
     "instant",
-    "browser"
+    "browser",
+    "front-end"
   ],
   "devDependencies": {
     "@babel/cli": "^7.21.0",
