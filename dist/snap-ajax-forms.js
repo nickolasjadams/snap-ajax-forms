@@ -24,7 +24,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
  * @author Nick Adams
  * @see {@link https://github.com/nickolasjadams/snap-ajax-forms|Repository}
  * @license MIT
- * @version 1.0.0
+ * @version 1.0.1
  */
 var SnapAjaxForms = /*#__PURE__*/function () {
   function SnapAjaxForms(options) {
@@ -35,6 +35,9 @@ var SnapAjaxForms = /*#__PURE__*/function () {
       version: "v3"
     };
     this.onDone = "";
+    this.onFail = "";
+    this.onAlways = "";
+    this.onBeforeSend = "";
     if (options) {
       if (options.selector) {
         this.selector = options.selector;
@@ -97,6 +100,9 @@ var SnapAjaxForms = /*#__PURE__*/function () {
     key: "prepFormData",
     value: function prepFormData(form, submissionEvent) {
       this.onDone = window[form.getAttribute('data-ajax-done')];
+      this.onFail = window[form.getAttribute('data-ajax-fail')];
+      this.onAlways = window[form.getAttribute('data-ajax-always')];
+      this.onBeforeSend = window[form.getAttribute('data-ajax-before-send')];
       var submitter = submissionEvent.submitter;
       var formData = new FormData(form, submitter);
       if (submitter) {
@@ -162,6 +168,7 @@ var SnapAjaxForms = /*#__PURE__*/function () {
             setTimeout(function () {
               submitter.removeAttribute("disabled");
             }, _this.submitDisabledDuration);
+            if (typeof _this.onBeforeSend === "function") _this.onBeforeSend();
           }
         }
       }).fail(function (data) {
@@ -190,6 +197,7 @@ var SnapAjaxForms = /*#__PURE__*/function () {
             });
           }
         }
+        if (typeof _this.onFail === "function") _this.onFail(data);
       }).done(function (data) {
         form.reset();
         document.querySelectorAll("[data-ajax-errors]").forEach(function (element) {
@@ -203,6 +211,8 @@ var SnapAjaxForms = /*#__PURE__*/function () {
             detail: data
           });
         }
+      }).always(function (data) {
+        if (typeof _this.onAlways === "function") _this.onAlways(data);
       });
     }
   }]);
