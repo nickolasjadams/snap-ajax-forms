@@ -1,6 +1,6 @@
 {
   "name": "@stegopop/snap-ajax-forms",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Instantly turn an HTML form element into an AJAX request just by adding an attribute.",
   "main": "dist/snap-ajax-forms.min.js",
   "scripts": {
