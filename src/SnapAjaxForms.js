@@ -6,7 +6,7 @@
  * @author Nick Adams
  * @see {@link https://github.com/nickolasjadams/snap-ajax-forms|Repository}
  * @license MIT
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 class SnapAjaxForms {
@@ -18,6 +18,9 @@ class SnapAjaxForms {
             version: "v3"
         };
         this.onDone = "";
+        this.onFail = "";
+        this.onAlways = "";
+        this.onBeforeSend = "";
         if (options) {
             if (options.selector) {
                 this.selector = options.selector;
@@ -77,6 +80,9 @@ class SnapAjaxForms {
 
     prepFormData(form, submissionEvent) {
         this.onDone = window[form.getAttribute('data-ajax-done')];
+        this.onFail = window[form.getAttribute('data-ajax-fail')];
+        this.onAlways = window[form.getAttribute('data-ajax-always')];
+        this.onBeforeSend = window[form.getAttribute('data-ajax-before-send')];
         let submitter = submissionEvent.submitter;
         let formData = new FormData(form, submitter);
         if (submitter) {
@@ -123,7 +129,8 @@ class SnapAjaxForms {
                 if (submitter) {
                     setTimeout(() => {
                         submitter.removeAttribute("disabled");
-                    }, _this.submitDisabledDuration)
+                    }, _this.submitDisabledDuration);
+                    if (typeof _this.onBeforeSend === "function") _this.onBeforeSend();
                 }
             }
         })
@@ -153,6 +160,7 @@ class SnapAjaxForms {
                         });
                     }
                 }
+                if (typeof _this.onFail === "function") _this.onFail(data);
             })
             .done(function(data) {
                 form.reset();
@@ -165,6 +173,9 @@ class SnapAjaxForms {
                     let id = form.id.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/[\s_]+/g, '-').toLowerCase();
                     form.dispatchEvent(new CustomEvent(id + "-submit"), { detail: data });
                 }
+            })
+            .always(function(data) {
+                if (typeof _this.onAlways === "function") _this.onAlways(data);
             });
     }
 

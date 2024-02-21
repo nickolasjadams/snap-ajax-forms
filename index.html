@@ -57,7 +57,14 @@
 </head>
 <body>
 
-    <form action="/db2.json" method="get" id="testForm" data-ajax data-ajax-recaptcha><!-- data-ajax-done="alertTheUser" -->
+    <form action="/db2.json" method="get" id="testForm"
+          data-ajax
+          data-ajax-recaptcha
+          data-ajax-done="alertTheUser"
+          data-ajax-before-send="beforeCallback"
+          data-ajax-fail="failCallback"
+          data-ajax-always="alwaysCallback"
+    ><!-- data-ajax-done="alertTheUser" -->
 
 <!--        <div class="snap-ajax-spinner-bar">-->
 <!--            <div class="snap-ajax-container">-->
@@ -159,11 +166,31 @@
 <!--    <script src="/dist/snap-ajax-forms.js"></script>-->
     <script src="/src/SnapAjaxForms.js"></script>
     <script>
+
+        // TODO: Test the other callbacks
+
+        function beforeCallback() {
+            alert("We ran a before function.");
+            console.log("before")
+        }
+
+        function failCallback(data) {
+            alert("We ran a fail function.");
+            console.log("fail callback");
+            console.log(data)
+        }
+
+        function alwaysCallback(data) {
+            alert("We ran a always function.");
+            console.log("always callback");
+            console.log(data)
+        }
         function alertTheUser(data) {
             alert("We ran a done function.");
+            console.log(data)
         }
         document.querySelector("#testForm").addEventListener("test-form-submit", function() {
-            console.log("Recieved an event");
+            console.log("Received an event");
         });
 
         (function() {

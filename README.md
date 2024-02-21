@@ -5,6 +5,10 @@
 
 Instantly turn an HTML form element into an AJAX request just by adding an attribute.
 
+## Dependencies
+
+Requires jQuery's AJAX.
+
 ## Usage
 
 Make your web apps feel snappier by converting server-side requests into AJAX requests.  
@@ -83,8 +87,8 @@ Then add the `data-ajax-recaptcha` attribute to any form you'd like to protect.
 </form>
 ```
 
-*Note: This version of the Google reCAPTCHA is score-based. SnapAjaxForms implementation is currently pass or fail, so 
-you won't be able to perform actions based on scores.* 
+*Note: This version of the Google reCAPTCHA is score-based. If you wanted to perform certain actions based on that score, 
+then pass the `score` from Google's Site Verify Response. You can access that in the form submit event, or the `done`, `always`, or `fail` callbacks.* 
 
 ### Showing Errors
 
@@ -138,14 +142,24 @@ Whatever casing you use for your form id will be converted to kebab-casing for t
 </script>
 ```
 
-### Done Callbacks
+### Callbacks
 
-Another way to call code after a submission is with the `data-ajax-done` attribute.
+Another way to call code after a submission is with the AJAX callback attributes.
+
+- done
+- fail
+- always
+- beforeSend
 
 Pass the name of a JavaScript function to the attribute.
 
 ```html
-<form action="/url" method="POST" data-ajax data-ajax-done="doneCallbackExample">
+<form action="/url" method="POST" 
+      data-ajax 
+      data-ajax-done="doneCallbackExample"
+      data-ajax-fail="failCallbackExample"
+      data-ajax-always="alwaysCallbackExample"
+      data-ajax-before-send="beforeSendCallbackExample">
     ...
 </form>
 ```
@@ -154,6 +168,18 @@ Pass the return data to your done callback function by adding a data argument to
 
 ```js
 function doneCallbackExample(data) {
+    ...
+}
+
+function failCallbackExample(data) {
+    ...
+}
+
+function alwaysCallbackExample(data) {
+    ...
+}
+
+function beforeSendCallbackExample() {
     ...
 }
 ```
